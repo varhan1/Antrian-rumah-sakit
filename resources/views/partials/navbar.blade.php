@@ -2,8 +2,8 @@
  <div id="topbar" class="d-flex align-items-center fixed-top">
      <div class="container d-flex justify-content-between">
          <div class="contact-info d-flex align-items-center">
-             <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-             <i class="bi bi-phone"></i> +1 5589 55488 55
+             <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">Alshiel@gmail.com</a>
+             <i class="bi bi-phone"></i> +62 85270995710
          </div>
      </div>
  </div>
@@ -11,7 +11,7 @@
  <header id="header" class="fixed-top">
      <div class="container d-flex align-items-center">
 
-         <h1 class="logo me-auto"><a href="/">RS Kebumen 2</a></h1>
+         <h1 class="logo me-auto"><a href="/">Alshiel Hospital</a></h1>
 
          <nav id="navbar" class="navbar order-last order-lg-0">
              <ul>
