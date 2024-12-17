@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout Kode Sumber') {
             steps {
                 echo 'Mengambil kode sumber dari Git...'
-                git branch: 'main', url: 'https://github.com/your-repository.git'
+                git branch: 'main', url: 'https://github.com/varhan1/Antrian-rumah-sakit.git'
             }
         }
 
