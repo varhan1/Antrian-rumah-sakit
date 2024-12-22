@@ -1,84 +1,40 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_IMAGE = 'my-docker-image:latest'
-        DOCKERHUB_USER = 'dockerhub-username'
-        DOCKERHUB_CRED = 'dockerhub-creds'
-        ANSIBLE_SERVER = 'user@ansible-server'
-        K8S_SERVER = 'user@k8s-server'
-    }
-
     stages {
-
-        // Stage 1: Checkout Kode Sumber
-        stage('Checkout Kode Sumber') {
+        stage('Checkout') {
             steps {
-                echo 'Mengambil kode sumber dari Git...'
-                git branch: 'main', url: 'https://github.com/varhan1/Antrian-rumah-sakit.git'
+                git branch: 'master', url: 'https://github.com/MilanoGps/testing.git'
             }
         }
-
-        // Stage 2: Mengirim File
-        stage('Mengirim File') {
+        stage('Send Dockerfile to Ansible') {
             steps {
-                echo 'Mengirim file ke server Ansible...'
-                sh ''
-                scp Dockerfile ${ANSIBLE_SERVER}:/home/user/Dockerfile
-                '''
+                echo 'Sending Dockerfile to Ansible...'
+                // Tambahkan langkah mengirimkan Dockerfile ke Ansible di sini
             }
         }
-
-        // Stage 3: Build Image Docker
-        stage('Build Image Docker') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Membangun image Docker...'
-                sh ''
-                docker build -t ${DOCKERHUB_USER}/${DOCKER_IMAGE} .
-                '''
+                echo 'Building Docker Image...'
+                // Tambahkan langkah build image Docker di sini
             }
         }
-
-        // Stage 4: Push ke DockerHub
-        stage('Push ke DockerHub') {
+        stage('Push Image to Docker Hub') {
             steps {
-                echo 'Push image Docker ke DockerHub...'
-                withCredentials([string(credentialsId: "${DOCKERHUB_CRED}", variable: 'DOCKERHUB_PASS')]) {
-                    sh '''
-                    docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}
-                    docker push ${DOCKERHUB_USER}/${DOCKER_IMAGE}
-                    '''
-                }
+                echo 'Pushing Image to Docker Hub...'
+                // Tambahkan langkah push image ke Docker Hub di sini
             }
         }
-
-        // Stage 5: Copy File ke Server Kubernetes
-        stage('Copy File ke Server Kubernetes') {
+        stage('Copy Files to Kubernetes') {
             steps {
-                echo 'Mengirim file konfigurasi Kubernetes...'
-                sh ''
-                scp k8s-config.yaml ${K8S_SERVER}:/home/user/k8s-config.yaml
-                '''
+                echo 'Copying Files to Kubernetes...'
+                // Tambahkan langkah copy file ke Kubernetes di sini
             }
         }
-
-        // Stage 6: Deployment Menggunakan Ansible
-        stage('Deployment Menggunakan Ansible') {
+        stage('Deploy to Kubernetes') {
             steps {
-                echo 'Melakukan deployment ke Kubernetes menggunakan Ansible...'
-                sh ''
-                ssh ${ANSIBLE_SERVER} "ansible-playbook -i /home/user/inventory /home/user/k8s-deployment.yaml"
-                '''
+                echo 'Deploying to Kubernetes...'
+                // Tambahkan langkah deploy aplikasi ke Kubernetes di sini
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline berhasil dijalankan!'
-        }
-        failure {
-            echo 'Pipeline gagal, periksa log untuk detail kesalahan!'
         }
     }
 }
